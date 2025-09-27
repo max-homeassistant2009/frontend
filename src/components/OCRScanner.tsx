@@ -1,6 +1,18 @@
 import { type ChangeEvent, useState } from "react";
 import scanDocument from "./scanDocument";
-import { Box, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  Modal,
+  Typography,
+} from "@mui/material";
+import { IoCloseSharp } from "react-icons/io5";
 
 interface Props {
   handleClose: () => void;
@@ -64,33 +76,38 @@ const OCRScanner = ({ handleClose, isOpen }: Props) => {
   };
 
   return (
-    <Modal
-      open={isOpen}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={{ ...style, p: 2 }}>
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          sx={{ fontSize: { xs: "2rem", sm: "1.75rem" } }} // Increased font size for mobile and larger screens
+    <Dialog fullWidth maxWidth="md" open={isOpen} onClose={handleClose}>
+      <DialogTitle sx={{ fontSize: 22 }}>
+        Zur Einkaufsliste hinzufügen
+      </DialogTitle>
+      <IconButton
+        onClick={handleClose}
+        sx={(theme) => ({
+          position: "absolute",
+          right: 8,
+          top: 8,
+          color: theme.palette.grey[500],
+        })}
+      >
+        <IoCloseSharp />
+      </IconButton>
+      <DialogContent>
+        <Typography>Füge dein Bild hier ein</Typography>
+        <Button
+          variant="outlined"
+          component="label"
+          color="primary"
+          sx={{ textTransform: "none", mt: 3 }}
         >
-          Zur Einkaufsliste hinzufügen
-        </Typography>
-        <Typography
-          id="modal-modal-description"
-          sx={{ mt: 2, fontSize: { xs: "1.75rem", sm: "1.5rem" } }} // Increased font size for mobile and larger screens
-        >
-          Füge dein Bild hier ein
-        </Typography>
-        <input
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={handleImageUpload}
-        />
+          Bild hochladen
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleImageUpload}
+            hidden
+          />
+        </Button>
 
         {image && (
           <div style={{ marginTop: "1rem" }}>
@@ -102,26 +119,25 @@ const OCRScanner = ({ handleClose, isOpen }: Props) => {
           </div>
         )}
 
-        <div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
-          <button onClick={processImage}>Process Image</button>
-          <button onClick={sendToBackend}>Send Image</button>
-        </div>
+        {scanResult && (
+          <div style={{ marginTop: "1rem" }}>
+            <h3>OCR Result:</h3>
+            <Typography>{JSON.stringify(scanResult, null, 2)}</Typography>
+          </div>
+        )}
 
         {response && (
           <div style={{ marginTop: "1rem" }}>
             <h3>Backend Response:</h3>
-            <p>{response}</p>
+            <Typography>{response}</Typography>
           </div>
         )}
-
-        {scanResult && (
-          <div style={{ marginTop: "1rem" }}>
-            <h3>OCR Result:</h3>
-            <p>{JSON.stringify(scanResult, null, 2)}</p>
-          </div>
-        )}
-      </Box>
-    </Modal>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={processImage}>Process Image</Button>
+        <Button onClick={sendToBackend}>Send Image</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
