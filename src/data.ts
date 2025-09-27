@@ -6,6 +6,12 @@ export const testData = [
   { id: 5, name: "Evelyn" },
 ];
 
+// Hilfsfunktion zum Formatieren eines Datums von yyyy-mm-dd zu dd.mm.yyyy
+export function formatDate(dateStr: string): string {
+  const [year, month, day] = dateStr.split("-");
+  return `${day}.${month}.${year}`;
+}
+
 export interface Receipt {
   id: string;
   date: string;
@@ -23,7 +29,7 @@ export const testbackend: Receipt[] = [
   {
     id: "1",
     date: "2023-10-01",
-    amount: 20,
+    amount: 25,
     groceries: [
       {
         name: "Äpfel",
@@ -44,6 +50,11 @@ export const testbackend: Receipt[] = [
         name: "Butter",
         amount: 2,
         price: 1.49,
+      },
+      {
+        name: "Sonstiges",
+        amount: 1,
+        price: 5.0,
       },
     ],
   },
