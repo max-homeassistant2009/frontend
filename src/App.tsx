@@ -1,17 +1,27 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  Slider,
-  Typography,
-} from "@mui/material";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { Box, Button, Card, Grid, Slider, Typography } from "@mui/material";
 import { testbackend, testData } from "./data";
 import { CustomTable } from "./components/CustomTable";
 import OCRScanner from "./components/OCRScanner";
+import { formatDate } from "./data";
+
+const data01 = [
+  { name: "Group A", value: 400 },
+  { name: "Group B", value: 300 },
+  { name: "Group C", value: 300 },
+  { name: "Group D", value: 200 },
+  { name: "Group E", value: 278 },
+  { name: "Group F", value: 189 },
+];
+
+const data02 = [
+  { name: "Group A", value: 2400 },
+  { name: "Group B", value: 4567 },
+  { name: "Group C", value: 1398 },
+  { name: "Group D", value: 9800 },
+  { name: "Group E", value: 3908 },
+  { name: "Group F", value: 4800 },
+];
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
