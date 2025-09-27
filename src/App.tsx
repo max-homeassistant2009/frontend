@@ -96,7 +96,10 @@ function App() {
             Analyse:
           </Typography>
           <Card variant="outlined" sx={{ p: 2 }}>
-            <Analytics data01={data01} data02={data02} />
+            <Analytics data01={data01} />
+          </Card>
+          <Card variant="outlined" sx={{ p: 2 }}>
+            <Analytics data01={data02} />
           </Card>
         </div>
       </div>

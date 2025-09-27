@@ -18,7 +18,7 @@ const data02 = [
   { name: "Group F", value: 4800 },
 ];
 
-export default function Analytics({ data01, data02 }) {
+export default function Analytics({ data01 }) {
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart width={400} height={400}>
@@ -32,15 +32,7 @@ export default function Analytics({ data01, data02 }) {
           fill="#a0b2dcff"
           label
         />
-        <Pie
-          dataKey="value"
-          data={data02}
-          cx={200}
-          cy={200}
-          outerRadius={80}
-          fill="#a0b2dcff"
-          label
-        />
+
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>
