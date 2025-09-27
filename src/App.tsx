@@ -1,37 +1,55 @@
 import { useState } from "react";
-import Button from "./components/Button";
-import { Box, Card, Slider } from "@mui/material";
+import { Box, Button, Card, Grid, Slider, Typography } from "@mui/material";
 import { testbackend, testData } from "./data";
 import { CustomTable } from "./components/CustomTable";
 import OCRScanner from "./components/OCRScanner";
 
 function App() {
+  const [modalisOpen, setModalisOpen] = useState(false);
+
   return (
-    <div style={{ margin: 0, padding: 0 }}>
-      <OCRScanner />
-      <Box>
-        <h1>Einkaufs-Analyse</h1>
+    <Box>
+      <OCRScanner
+        handleClose={() => setModalisOpen(false)}
+        isOpen={modalisOpen}
+      />
+      <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Typography variant="h2" component="h1">
+          Einkaufs-Analyse
+        </Typography>
       </Box>
-      <Button>Neuen Kassenbon scannen</Button>
-      <Card variant="outlined">
-        <Box>
-          <h2>Letzte Kassenbons:</h2>
-        </Box>
-        {testbackend.map((receipt) => (
-          <Card variant="outlined" sx={{ m: 2, p: 2 }} key={receipt.id}>
-            <div key={receipt.id}>
-              <Box sx={{ mb: 2, fontWeight: "bold", fontSize: "1.2em" }}>
-                Einkauf am {receipt.date} - {receipt.amount}€
-              </Box>
-              <CustomTable data={testbackend} />
-            </div>
+      <Grid container spacing={2} justifyContent="center">
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Button onClick={() => setModalisOpen(true)}>
+            Neuen Kassenbon scannen
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} sx={{ mt: 4 }}>
+        <Grid size={{ xs: 12 }}>
+          <Card variant="outlined" sx={{ p: 2 }}>
+            <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
+              Letzte Kassenbons:
+            </Typography>
+            {testbackend.map((receipt) => (
+              <Card variant="outlined" sx={{ m: 2, p: 2 }} key={receipt.id}>
+                <Box sx={{ mb: 2, fontWeight: "bold", fontSize: "1.2em" }}>
+                  Einkauf am {receipt.date} - {receipt.amount}€
+                </Box>
+                <CustomTable data={testbackend} />
+              </Card>
+            ))}
           </Card>
-        ))}
-      </Card>
-      <Card variant="outlined">
-        <h2>Analyse:</h2>
-      </Card>
-    </div>
+        </Grid>
+        <Grid size={{ xs: 12 }}>
+          <Card variant="outlined" sx={{ p: 2 }}>
+            <Typography variant="h5" component="h2">
+              Analyse:
+            </Typography>
+          </Card>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
