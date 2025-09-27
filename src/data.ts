@@ -47,13 +47,15 @@ export function formatDate(dateStr: string): string {
 }
 
 export interface Receipt {
-  id: string;
+  id: number;
   date: string;
   amount: number;
+  restAmount: number;
   groceries: Grocery[];
 }
 
 interface Grocery {
+  id: number;
   name: string;
   amount: number;
   price: number;
@@ -61,48 +63,51 @@ interface Grocery {
 
 export const testbackend: Receipt[] = [
   {
-    id: "1",
+    id: 1,
     date: "2023-10-01",
     amount: 25,
+    restAmount: 5,
     groceries: [
       {
+        id: 1,
         name: "Äpfel",
         amount: 5,
         price: 1.5,
       },
       {
+        id: 2,
         name: "Bananen",
         amount: 10,
         price: 0.99,
       },
       {
+        id: 3,
         name: "Eier",
         amount: 5,
         price: 2.99,
       },
       {
+        id: 4,
         name: "Butter",
         amount: 2,
         price: 1.49,
       },
-      {
-        name: "Sonstiges",
-        amount: 1,
-        price: 5.0,
-      },
     ],
   },
   {
-    id: "2",
+    id: 2,
     date: "2023-10-02",
     amount: 35,
+    restAmount: 0,
     groceries: [
       {
+        id: 1,
         name: "Orangen",
         amount: 15,
         price: 1.2,
       },
       {
+        id: 2,
         name: "Trauben",
         amount: 20,
         price: 2.5,
@@ -110,21 +115,25 @@ export const testbackend: Receipt[] = [
     ],
   },
   {
-    id: "3",
+    id: 3,
     date: "2023-10-03",
     amount: 50,
+    restAmount: 0,
     groceries: [
       {
+        id: 1,
         name: "Milch",
         amount: 10,
         price: 0.89,
       },
       {
+        id: 2,
         name: "Brot",
         amount: 5,
         price: 1.99,
       },
       {
+        id: 3,
         name: "Käse",
         amount: 35,
         price: 3.49,
