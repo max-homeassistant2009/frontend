@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Card, Typography } from "@mui/material";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { testbackend, formatDate } from "./data";
@@ -26,6 +26,14 @@ const data02 = [
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [receipts, setReceipts] = useState(testbackend);
+
+  useEffect(() => {
+    fetch("http://172.16.0.192:8080/api/groceries/receipts")
+      .then((response) => response.json())
+      .then((data) => setReceipts(data))
+      .catch((error) => console.error("Error fetching receipts:", error));
+  }, []);
 
   return (
     <div
@@ -72,7 +80,7 @@ function App() {
           <Typography variant="h5" component="h2" style={{ marginBottom: 16 }}>
             Letzte Kassenbons:
           </Typography>
-          {testbackend.map((receipt) => (
+          {receipts.map((receipt) => (
             <Card
               variant="outlined"
               style={{ margin: "16px 0", padding: 16 }}
@@ -85,7 +93,8 @@ function App() {
                   fontSize: "1.2em",
                 }}
               >
-                Einkauf am {formatDate(receipt.date)} - {receipt.amount}€
+                Einkauf am {formatDate(receipt.date)} für{" "}
+                {receipt.amount + receipt.restAmount}€
               </Box>
               <CustomTable data={testbackend} />
             </Card>
@@ -95,7 +104,7 @@ function App() {
           <Typography variant="h5" component="h2" style={{ marginBottom: 16 }}>
             Analyse:
           </Typography>
-          <Card variant="outlined" sx={{ p: 2 }}>
+          <Card variant="outlined" style={{ margin: "16px 0", padding: 16 }}>
             <Analytics data01={data01} />
           </Card>
           <Card variant="outlined" sx={{ p: 2 }}>
