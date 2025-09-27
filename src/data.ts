@@ -6,6 +6,40 @@ export const testData = [
   { id: 5, name: "Evelyn" },
 ];
 
+// Lebensmittelkategorien (Beispielmapping)
+const CATEGORY_MAP: Record<string, string> = {
+  Äpfel: "Obst",
+  Bananen: "Obst",
+  Orangen: "Obst",
+  Trauben: "Obst",
+  Eier: "Tierprodukte",
+  Butter: "Milchprodukte",
+  Milch: "Milchprodukte",
+  Käse: "Milchprodukte",
+  Brot: "Backwaren",
+  Sonstiges: "Sonstiges",
+};
+
+export interface CategorySummary {
+  category: string;
+  total: number;
+}
+
+export function getCategorySummary(receipts: Receipt[]): CategorySummary[] {
+  const summary: Record<string, number> = {};
+  receipts.forEach((receipt) => {
+    receipt.groceries.forEach((item) => {
+      const category = CATEGORY_MAP[item.name] || "Sonstiges";
+      const itemTotal = item.amount * item.price;
+      summary[category] = (summary[category] || 0) + itemTotal;
+    });
+  });
+  return Object.entries(summary).map(([category, total]) => ({
+    category,
+    total,
+  }));
+}
+
 // Hilfsfunktion zum Formatieren eines Datums von yyyy-mm-dd zu dd.mm.yyyy
 export function formatDate(dateStr: string): string {
   const [year, month, day] = dateStr.split("-");

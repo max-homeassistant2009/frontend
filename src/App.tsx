@@ -4,6 +4,7 @@ import { testbackend, testData } from "./data";
 import { CustomTable } from "./components/CustomTable";
 import OCRScanner from "./components/OCRScanner";
 import { formatDate } from "./data";
+import Analytics from "./components/Analytics";
 
 const data01 = [
   { name: "Group A", value: 400 },
@@ -65,7 +66,7 @@ function App() {
             <Typography variant="h5" component="h2">
               Analyse:
             </Typography>
-            {/*             <Example data={(data01, data02)} /> */}
+            <Analytics data01={data01} data02={data02} />
           </Card>
         </Grid>
       </Grid>
