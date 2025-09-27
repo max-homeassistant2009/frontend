@@ -29,7 +29,7 @@ export default function Analytics({ data01, data02 }) {
           cx="50%"
           cy="50%"
           outerRadius={80}
-          fill="#8884d8"
+          fill="#a0b2dcff"
           label
         />
         <Pie
@@ -37,9 +37,8 @@ export default function Analytics({ data01, data02 }) {
           data={data02}
           cx={200}
           cy={200}
-          innerRadius={40}
           outerRadius={80}
-          fill="#82ca9d"
+          fill="#a0b2dcff"
           label
         />
         <Tooltip />
