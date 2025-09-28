@@ -1,22 +1,6 @@
+import { useState } from "react";
 import { Pie, PieChart, ResponsiveContainer, Tooltip, Cell } from "recharts";
 
-const data01 = [
-  { name: "Obst", value: 30 },
-  { name: "Gemüse", value: 10 },
-  { name: "Backwaren", value: 15 },
-  { name: "Wurst und Fleisch", value: 35 },
-  { name: "Milchprodukte", value: 5 },
-  { name: "Sonstiges", value: 5 },
-];
-
-const data02 = [
-  { name: "Group A", value: 2400 },
-  { name: "Group B", value: 4567 },
-  { name: "Group C", value: 1398 },
-  { name: "Group D", value: 9800 },
-  { name: "Group E", value: 3908 },
-  { name: "Group F", value: 4800 },
-];
 const COLORS = [
   "#0088FE",
   "#00C49F",
@@ -24,9 +8,64 @@ const COLORS = [
   "#FF8042",
   "#8884d8",
   "#82ca9d",
+  "#f50057",
+  "#ff5722",
+  "#3f51b5",
+  "#4caf50",
+  "#ff9800",
+  "#9c27b0",
 ];
+const FADED = "#e0e0e0"; // Faded color
+
+function renderCustomizedLabel({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index,
+  name,
+  value,
+}) {
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="#333"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+      fontSize={14}
+      fontWeight="bold"
+      opacity={1}
+      style={{
+        textShadow: "0 0 4px #fff, 0 0 2px #fff",
+        paintOrder: "stroke",
+        stroke: "#fff",
+        strokeWidth: 0.5,
+      }}
+    >
+      {`${name}: ${value}`}
+    </text>
+  );
+}
 
 export default function Analytics({ data01 }) {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
+  };
+
+  const onPieLeave = () => {
+    setActiveIndex(null);
+  };
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart width={400} height={400}>
@@ -37,13 +76,24 @@ export default function Analytics({ data01 }) {
           cx="50%"
           cy="50%"
           outerRadius={80}
-          label
+          label={renderCustomizedLabel}
+          onMouseEnter={onPieEnter}
+          onMouseLeave={onPieLeave}
         >
           {data01.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell
+              key={`cell-${index}`}
+              fill={
+                activeIndex === null
+                  ? COLORS[index % COLORS.length]
+                  : activeIndex === index
+                    ? COLORS[index % COLORS.length]
+                    : FADED
+              }
+              opacity={activeIndex === null || activeIndex === index ? 1 : 0.5}
+            />
           ))}
         </Pie>
-
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>

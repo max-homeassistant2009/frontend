@@ -47,7 +47,7 @@ function App() {
   return (
     <div
       style={{
-        maxWidth: 900,
+        maxWidth: 1200,
         margin: "0 auto",
         padding: "32px 16px",
         fontFamily: "sans-serif",
@@ -80,7 +80,7 @@ function App() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: "5fr 5fr",
           gap: 24,
           alignItems: "start",
         }}
@@ -129,7 +129,10 @@ function App() {
           <Typography variant="h5" component="h2" style={{ marginBottom: 16 }}>
             Analyse:
           </Typography>
-          <Card variant="outlined" style={{ margin: "16px 0", padding: 16 }}>
+          <Card
+            variant="outlined"
+            style={{ margin: "16px 0", padding: 32, minHeight: 400 }}
+          >
             <Box
               style={{
                 marginBottom: 16,
