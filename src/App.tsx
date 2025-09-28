@@ -29,7 +29,7 @@ function App() {
   const [receipts, setReceipts] = useState(testbackend);
 
   useEffect(() => {
-    fetch("http://172.16.0.192:8080/api/groceries/receipts")
+    fetch("http://172.16.0.194:8080/api/groceries/receipts")
       .then((response) => response.json())
       .then((data) => setReceipts(data))
       .catch((error) => console.error("Error fetching receipts:", error));
@@ -93,10 +93,9 @@ function App() {
                   fontSize: "1.2em",
                 }}
               >
-                Einkauf am {formatDate(receipt.date)} für{" "}
-                {receipt.amount + receipt.restAmount}€
+                Einkauf am {formatDate(receipt.date)} für {receipt.amount}€
               </Box>
-              <CustomTable data={testbackend} />
+              <CustomTable data={receipts} />
             </Card>
           ))}
         </div>
