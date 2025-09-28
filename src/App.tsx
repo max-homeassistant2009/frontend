@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Card, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Typography,
+  Collapse,
+  IconButton,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { testbackend, formatDate } from "./data";
 import { CustomTable } from "./components/CustomTable";
@@ -27,6 +35,7 @@ const data02 = [
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [receipts, setReceipts] = useState(testbackend);
+  const [openIdx, setOpenIdx] = useState(-1);
 
   useEffect(() => {
     fetch("http://172.16.0.194:8080/api/groceries/receipts")
@@ -80,25 +89,42 @@ function App() {
           <Typography variant="h5" component="h2" style={{ marginBottom: 16 }}>
             Letzte Kassenbons:
           </Typography>
-          {receipts.map((receipt) => (
-            <Card
-              variant="outlined"
-              style={{ margin: "16px 0", padding: 16 }}
-              key={receipt.id}
-            >
+          {receipts.map((receipt, idx) => (
+            <Card key={receipt.id} variant="outlined" sx={{ mb: 2, p: 2 }}>
               <Box
-                style={{
-                  marginBottom: 16,
-                  fontWeight: "bold",
-                  fontSize: "1.2em",
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  cursor: "pointer",
                 }}
               >
-                Einkauf am {new Date(receipt.date).toLocaleString()} für{" "}
-                {receipt.amount.toFixed(2)}€
+                <Typography
+                  sx={{ m: 2, fontWeight: "bold", fontSize: "1.6em" }}
+                >
+                  Einkauf am {new Date(receipt.date).toLocaleString()} für{" "}
+                  {receipt.amount.toFixed(2)}€
+                </Typography>
+                <IconButton
+                  size="small"
+                  onClick={() => setOpenIdx(openIdx === idx ? -1 : idx)}
+                  aria-label="expand"
+                >
+                  <ExpandMoreIcon
+                    sx={{
+                      transform:
+                        openIdx === idx ? "rotate(180deg)" : "rotate(0deg)",
+                      transition: "0.2s",
+                    }}
+                  />
+                </IconButton>
               </Box>
-              <CustomTable data={[receipt]} />
+              <Collapse in={openIdx === idx} timeout="auto" unmountOnExit>
+                <CustomTable data={[receipt]} />
+              </Collapse>
             </Card>
           ))}
+          // Add state for openIdx const [openIdx, setOpenIdx] = useState(-1);
         </div>
         <div>
           <Typography variant="h5" component="h2" style={{ marginBottom: 16 }}>
@@ -109,7 +135,7 @@ function App() {
               style={{
                 marginBottom: 16,
                 fontWeight: "bold",
-                fontSize: "1.2em",
+                fontSize: "1.6em",
               }}
             >
               Anteile verschiedener Kategorien am Gesamteinkauf:
@@ -121,7 +147,7 @@ function App() {
               style={{
                 marginBottom: 16,
                 fontWeight: "bold",
-                fontSize: "1.2em",
+                fontSize: "1.6em",
               }}
             ></Box>
             <Analytics data01={data02} />
