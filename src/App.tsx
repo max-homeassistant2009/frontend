@@ -93,9 +93,10 @@ function App() {
                   fontSize: "1.2em",
                 }}
               >
-                Einkauf am {formatDate(receipt.date)} für {receipt.amount}€
+                Einkauf am {new Date(receipt.date).toLocaleString()} für{" "}
+                {receipt.amount.toFixed(2)}€
               </Box>
-              <CustomTable data={receipts} />
+              <CustomTable data={[receipt]} />
             </Card>
           ))}
         </div>

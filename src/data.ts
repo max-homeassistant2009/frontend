@@ -30,7 +30,7 @@ export function getCategorySummary(receipts: Receipt[]): CategorySummary[] {
   receipts.forEach((receipt) => {
     receipt.groceries.forEach((item) => {
       const category = CATEGORY_MAP[item.name] || "Sonstiges";
-      const itemTotal = item.amount * item.price;
+      const itemTotal = item.quantity * item.price;
       summary[category] = (summary[category] || 0) + itemTotal;
     });
   });
@@ -57,7 +57,7 @@ export interface Receipt {
 interface Grocery {
   id: number;
   name: string;
-  amount: number;
+  quantity: number;
   price: number;
 }
 
@@ -71,25 +71,25 @@ export const testbackend: Receipt[] = [
       {
         id: 1,
         name: "Äpfel",
-        amount: 5,
+        quantity: 5,
         price: 1.5,
       },
       {
         id: 2,
         name: "Bananen",
-        amount: 10,
+        quantity: 10,
         price: 0.99,
       },
       {
         id: 3,
         name: "Eier",
-        amount: 5,
+        quantity: 5,
         price: 2.99,
       },
       {
         id: 4,
         name: "Butter",
-        amount: 2,
+        quantity: 2,
         price: 1.49,
       },
     ],
@@ -103,13 +103,13 @@ export const testbackend: Receipt[] = [
       {
         id: 1,
         name: "Orangen",
-        amount: 15,
+        quantity: 15,
         price: 1.2,
       },
       {
         id: 2,
         name: "Trauben",
-        amount: 20,
+        quantity: 20,
         price: 2.5,
       },
     ],
@@ -123,19 +123,19 @@ export const testbackend: Receipt[] = [
       {
         id: 1,
         name: "Milch",
-        amount: 10,
+        quantity: 10,
         price: 0.89,
       },
       {
         id: 2,
         name: "Brot",
-        amount: 5,
+        quantity: 5,
         price: 1.99,
       },
       {
         id: 3,
         name: "Käse",
-        amount: 35,
+        quantity: 35,
         price: 3.49,
       },
     ],

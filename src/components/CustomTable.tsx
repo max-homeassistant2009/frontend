@@ -8,6 +8,7 @@ import {
   Paper,
 } from "@mui/material";
 import { Receipt } from "../data";
+import { FaReceipt } from "react-icons/fa";
 
 interface Props {
   data: Receipt[];
@@ -29,7 +30,7 @@ export const CustomTable = ({ data }: Props) => {
             receipt.groceries.map((grocery, index) => (
               <TableRow key={`${receipt.id}-${index}`}>
                 <TableCell>{grocery.name}</TableCell>
-                <TableCell>{grocery.amount}</TableCell>
+                <TableCell>{grocery.quantity}</TableCell>
                 <TableCell>{grocery.price.toFixed(2)}€</TableCell>
               </TableRow>
             ))
