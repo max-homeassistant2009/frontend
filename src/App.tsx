@@ -7,12 +7,12 @@ import OCRScanner from "./components/OCRScanner";
 import Analytics from "./components/Analytics";
 
 const data01 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-  { name: "Group E", value: 278 },
-  { name: "Group F", value: 189 },
+  { name: "Obst", value: 30 },
+  { name: "Gemüse", value: 10 },
+  { name: "Backwaren", value: 15 },
+  { name: "Wurst und Fleisch", value: 35 },
+  { name: "Milchprodukte", value: 5 },
+  { name: "Sonstiges", value: 5 },
 ];
 
 const data02 = [
@@ -105,9 +105,25 @@ function App() {
             Analyse:
           </Typography>
           <Card variant="outlined" style={{ margin: "16px 0", padding: 16 }}>
+            <Box
+              style={{
+                marginBottom: 16,
+                fontWeight: "bold",
+                fontSize: "1.2em",
+              }}
+            >
+              Anteile verschiedener Kategorien am Gesamteinkauf:
+            </Box>
             <Analytics data01={data01} />
           </Card>
           <Card variant="outlined" sx={{ p: 2 }}>
+            <Box
+              style={{
+                marginBottom: 16,
+                fontWeight: "bold",
+                fontSize: "1.2em",
+              }}
+            ></Box>
             <Analytics data01={data02} />
           </Card>
         </div>
