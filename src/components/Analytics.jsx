@@ -37,16 +37,14 @@ function renderCustomizedLabel({
     <text
       x={x}
       y={y}
-      fill="#333"
+      fill="#fff"
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
       fontSize={14}
       fontWeight="bold"
       opacity={1}
       style={{
-        textShadow: "0 0 4px #fff, 0 0 2px #fff",
         paintOrder: "stroke",
-        stroke: "#fff",
         strokeWidth: 0.5,
       }}
     >
