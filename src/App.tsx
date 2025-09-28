@@ -124,7 +124,6 @@ function App() {
               </Collapse>
             </Card>
           ))}
-          // Add state for openIdx const [openIdx, setOpenIdx] = useState(-1);
         </div>
         <div>
           <Typography variant="h5" component="h2" style={{ marginBottom: 16 }}>
@@ -141,7 +140,7 @@ function App() {
                 fontSize: "1.6em",
               }}
             >
-              Anteile verschiedener Kategorien am Gesamteinkauf:
+              Anteile verschiedener Kategorien am Gesamteinkauf (in %):
             </Box>
             <Analytics data01={data01} />
           </Card>
